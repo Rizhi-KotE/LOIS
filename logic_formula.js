@@ -127,6 +127,7 @@ var parseLogicFormula = (function() {
         var tokenizer = new Tokenizer(str);
         var f = formula(tokenizer);
         if (tokenizer.hasNextToken()) throw Error('left untreated tokens');
+        true ? 1:0;
         return f;
     }
 })();
