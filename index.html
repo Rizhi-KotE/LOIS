@@ -1,57 +1,59 @@
 <html>
-	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 
-	<script type="text/javascript" src="logic_formula.js"></script>
-	<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-	<script type="text/javascript">
+<script type="text/javascript" src="./dist/dist.bundle.js"></script>
+<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
 
-		function submitFunction(){
-			try{
-				parseLogicFormula($('input.formula').val());
-				setMessage("This string is logic formula", "alert-success")
-			}catch(err){
-				setMessage(err, "alert-warning");
-			}
-				};
-		function setMessage(message, clazz){
-			$('.message').empty();
-			$('.message').append(message);
-			setClass(clazz);
-		}
-		var setClass;
-		$(document).ready(function (){
-			var currentClass = "alert-info";
-			$('.message').addClass(currentClass);	
-			setClass = function(clazz){
-				$('.message').removeClass(currentClass);	
-				currentClass = clazz;
-				$('.message').addClass(clazz);
-			}
-		});
-	</script>
-	<style type="text/css">
-		.container {
-			padding: 20px;
-		}
-		.tree{
-			background: red;
-			width: 40%;
-			height: 100%;
-			display: inline-block;
-		}
-		.input-container {
-			padding: 40px;
-			margin: 0 auto 0 auto;
-			width: 400px;
-		}
-	</style>
-	<div class="container">
-		<form class='input-container form' onsubmit="submitFunction();return false;">
-			<div class="message alert">
-				Введите формулу
-			</div>
-			<input type="text" class="formula prima form-control" placeholder="Формула"></input>
-			<button class="btn btn-primary btn-block" type="submit">Проверить</button>
-		<form>
-	</div>
+    function submitFunction() {
+        var listener = EntryPoint.parseLogicFormula($('input.formula').val());
+        if(listener.hasNotError()){
+            setMessage("This string is logic formula", "alert-success")
+        }else{
+            setMessage(listener.getError(), "alert-warning");
+        }
+    };
+    function setMessage(message, clazz) {
+        $('.message').empty();
+        $('.message').append(message);
+        setClass(clazz);
+    }
+    var setClass;
+    $(document).ready(function () {
+        var currentClass = "alert-info";
+        $('.message').addClass(currentClass);
+        setClass = function (clazz) {
+            $('.message').removeClass(currentClass);
+            currentClass = clazz;
+            $('.message').addClass(clazz);
+        }
+    });
+</script>
+<style type="text/css">
+    .container {
+        padding: 20px;
+    }
+
+    .tree {
+        background: red;
+        width: 40%;
+        height: 100%;
+        display: inline-block;
+    }
+
+    .input-container {
+        padding: 40px;
+        margin: 0 auto 0 auto;
+        width: 400px;
+    }
+</style>
+<div class="container">
+    <form class='input-container form' onsubmit="submitFunction();return false;">
+        <div class="message alert">
+            Введите формулу
+        </div>
+        <input type="text" class="formula prima form-control" placeholder="Формула"></input>
+        <button class="btn btn-primary btn-block" type="submit">Проверить</button>
+        <form>
+</div>
 </html>
