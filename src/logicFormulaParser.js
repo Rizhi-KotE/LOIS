@@ -1,7 +1,7 @@
-const antlr4 = require('../node_modules/antlr4/index.js');
-const LogicLexer = require('../antlr/src/LogicLexer');
-const LogicParser = require('../antlr/src/LogicParser');
-const LogicVisitor = require('../antlr/src/LogicVisitor').LogicVisitor;
+// const antlr4 = require('../node_modules/antlr4/index.js');
+// const LogicLexer = require('../antlr/src/LogicLexer');
+// const LogicParser = require('../antlr/src/LogicParser');
+// const LogicVisitor = require('../antlr/src/LogicVisitor').LogicVisitor;
 
 function isFormula(str) {
     var parser = parseLogicFormula(str);
@@ -24,9 +24,9 @@ function parseLogicFormula(str) {
         return listener;
     };
     var chars = new antlr4.InputStream(str);
-    var lexer = new LogicLexer.LogicLexer(chars);
+    var lexer = new Logic.LogicLexer(chars);
     var tokens = new antlr4.CommonTokenStream(lexer);
-    var parser = new LogicParser.LogicParser(tokens);
+    var parser = new Logic.LogicParser(tokens);
     parser.buildParseTrees = true;
     var listener = new listener();
     parser.removeErrorListeners();
@@ -40,7 +40,7 @@ function parseLogicFormula(str) {
 }
 
 function EvaluateVisitor() {
-    LogicVisitor.call(this);
+    Logic.LogicVisitor.call(this);
 
     this.visitConjunction = function (ctx) {
         console.log(ctx)
@@ -48,8 +48,4 @@ function EvaluateVisitor() {
     return this;
 }
 
-module.exports = {
-    isFormula: isFormula,
-    parseLogicFormula: parseLogicFormula,
-    EvaluateVisitor: EvaluateVisitor
-};
+EvaluateVisitor.prototype = new Logic.LogicVisitor();

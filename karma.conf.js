@@ -15,7 +15,10 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'dist/test.bundle.js',
+            '/home/rizhi-kote/Student/labs/LOIS/dist/antlr4.bundle.js',
+            '/home/rizhi-kote/Student/labs/LOIS/dist/Logic.bundle.js',
+            'src/*.js',
+            '/home/rizhi-kote/Student/labs/LOIS/test/logic_formula.spec.js'
         ],
 
 

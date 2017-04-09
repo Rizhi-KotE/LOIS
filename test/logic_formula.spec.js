@@ -1,5 +1,3 @@
-const logicFormula = require("../src/logicFormulaParser.js");
-const isFormula = logicFormula.isFormula;
 describe('Determine that string is logic formula', function () {
 
     it('atom in braces is not formula', function () {
@@ -44,10 +42,9 @@ describe('Determine that string is logic formula', function () {
 
 
     describe('EvaluateVisitor', function () {
-        let visitor, parseLogicFormula;
+        let visitor;
         beforeEach(function () {
-            visitor = new logicFormula.EvaluateVisitor();
-            parseLogicFormula = logicFormula.parseLogicFormula;
+            visitor = new EvaluateVisitor();
         });
 
         it('(A&B) interpretation of [1,1] has value true', function () {
