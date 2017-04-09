@@ -3,57 +3,74 @@
 
 <script type="text/javascript" src="./dist/dist.bundle.js"></script>
 <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript">
-
-    function submitFunction() {
-        var listener = EntryPoint.parseLogicFormula($('input.formula').val());
-        if(listener.hasNotError()){
-            setMessage("This string is logic formula", "alert-success")
-        }else{
-            setMessage(listener.getError(), "alert-warning");
-        }
-    };
-    function setMessage(message, clazz) {
-        $('.message').empty();
-        $('.message').append(message);
-        setClass(clazz);
-    }
-    var setClass;
-    $(document).ready(function () {
-        var currentClass = "alert-info";
-        $('.message').addClass(currentClass);
-        setClass = function (clazz) {
-            $('.message').removeClass(currentClass);
-            currentClass = clazz;
-            $('.message').addClass(clazz);
-        }
-    });
-</script>
+<script type="text/javascript" src="src/viewControllers.js"></script>
 <style type="text/css">
-    .container {
-        padding: 20px;
-    }
+  .container {
+    padding: 20px;
+  }
 
-    .tree {
-        background: red;
-        width: 40%;
-        height: 100%;
-        display: inline-block;
-    }
+  .tree {
+    background: red;
+    width: 40%;
+    height: 100%;
+    display: inline-block;
+  }
 
-    .input-container {
-        padding: 40px;
-        margin: 0 auto 0 auto;
-        width: 400px;
-    }
+  .input-container {
+    padding: 40px;
+    margin: 0 auto 0 auto;
+    width: 400px;
+  }
 </style>
-<div class="container">
-    <form class='input-container form' onsubmit="submitFunction();return false;">
-        <div class="message alert">
-            Введите формулу
-        </div>
-        <input type="text" class="formula prima form-control" placeholder="Формула"></input>
-        <button class="btn btn-primary btn-block" type="submit">Проверить</button>
-        <form>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="javascript:checkFormulaState();">Проверить формулу</a></li>
+        <li><a href="javascript:testFormulaState();">Тест</a></li>
+        <li><a href="javascript:checkSKNFState();">Построить СКНФ</a></li>
+        <li><a href="javascript:testSKNFState();">Проверить СКНФ</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+<div class="container" id="checkFormulaState">
+  <form class='input-container form' onsubmit="submitFunction();return false;">
+    <div class="message alert">
+      Введите формулу
+    </div>
+    <input type="text" class="formula prima form-control" placeholder="Формула"></input>
+    <button class="btn btn-primary btn-block" type="submit">Проверить</button>
+  </form>
+</div>
+
+<div class="container" id="testFormulaState">
+  <form class='input-container form' onsubmit="return false;">
+    <div class="message alert" id="testFormulaMessage">
+      Является ли это выражение логической формулой?
+    </div>
+    <div class="message alert" id="formulaSpan"></div>
+    <div>
+      <button class="btn btn-primary" onclick="testFormulaView.testFormula(true)">Да</button>
+      <button class="btn btn-alert" onclick="testFormulaView.testFormula(false)" >Нет</button>
+      <button class="btn btn-alert" onclick="testFormulaView.changeTestFormula()">Дальше</button>
+    </div>
+  </form>
 </div>
 </html>

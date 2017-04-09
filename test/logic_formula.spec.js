@@ -1,4 +1,5 @@
-const isFormula = require("./logic_formula.js").isFormula;
+const logicFormula = require("../src/logicFormulaParser.js");
+const isFormula = logicFormula.isFormula;
 describe('Determine that string is logic formula', function () {
 
     it('atom in braces is not formula', function () {
@@ -39,5 +40,21 @@ describe('Determine that string is logic formula', function () {
 
     it('recursive binary formulas should not have braces', function () {
         expect(isFormula('((A&B)|(D|C))')).toBe(true);
+    });
+
+
+    describe('EvaluateVisitor', function () {
+        let visitor, parseLogicFormula;
+        beforeEach(function () {
+            visitor = new logicFormula.EvaluateVisitor();
+            parseLogicFormula = logicFormula.parseLogicFormula;
+        });
+
+        it('(A&B) interpretation of [1,1] has value true', function () {
+
+            var tree = parseLogicFormula('(A&B)').tree;
+            expect(visitor.visit(tree, {A: true, B: true})).toBe(true)
+
+        });
     });
 });

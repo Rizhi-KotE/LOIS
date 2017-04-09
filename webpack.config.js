@@ -2,8 +2,8 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        dist: './logic_formula.js',
-        test: './logic_formula.spec.js'
+        dist: './src/logicFormulaParser.js',
+        test: './test/specs.js'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),

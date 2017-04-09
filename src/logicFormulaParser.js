@@ -1,11 +1,11 @@
-var antlr4 = require('./node_modules/antlr4/index.js');
-var LogicLexer = require('./grammars/LogicLexer');
-var LogicParser = require('./grammars/LogicParser');
-
+const antlr4 = require('../node_modules/antlr4/index.js');
+const LogicLexer = require('../antlr/src/LogicLexer');
+const LogicParser = require('../antlr/src/LogicParser');
+const LogicVisitor = require('../antlr/src/LogicVisitor').LogicVisitor;
 
 function isFormula(str) {
-    var errorListener = parseLogicFormula(str);
-    return errorListener.hasNotError();
+    var parser = parseLogicFormula(str);
+    return parser.errorListener.hasNotError();
 };
 
 function parseLogicFormula(str) {
@@ -31,11 +31,26 @@ function parseLogicFormula(str) {
     var listener = new listener();
     parser.removeErrorListeners();
     parser.addErrorListener(listener);
-    parser.file();
-    return listener;
+    var tree = parser.file();
+    parser.errorListener = listener;
+    return {
+        errorListener: listener,
+        tree: tree
+    };
+}
+
+function EvaluateVisitor() {
+    LogicVisitor.call(this);
+    undefined.asd();
+
+    this.visitConjunction = function (ctx) {
+        console.log(ctx)
+    };
+    return this;
 }
 
 module.exports = {
     isFormula: isFormula,
-    parseLogicFormula: parseLogicFormula
-}
+    parseLogicFormula: parseLogicFormula,
+    EvaluateVisitor: EvaluateVisitor
+};
