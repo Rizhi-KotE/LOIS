@@ -18,7 +18,7 @@ module.exports = function (config) {
             '/home/rizhi-kote/Student/labs/LOIS/dist/antlr4.bundle.js',
             '/home/rizhi-kote/Student/labs/LOIS/dist/Logic.bundle.js',
             'src/*.js',
-            '/home/rizhi-kote/Student/labs/LOIS/test/logic_formula.spec.js'
+            '/home/rizhi-kote/Student/labs/LOIS/test/*.spec.js'
         ],
 
 

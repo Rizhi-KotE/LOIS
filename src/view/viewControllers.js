@@ -1,3 +1,5 @@
+let $ = require('')
+
 function submitFunction() {
     var listener = EntryPoint.parseLogicFormula($('input.formula').val()).errorListener;
     if (listener.hasNotError()) {

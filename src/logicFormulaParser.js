@@ -39,13 +39,3 @@ function parseLogicFormula(str) {
     };
 }
 
-function EvaluateVisitor() {
-    Logic.LogicVisitor.call(this);
-
-    this.visitConjunction = function (ctx) {
-        console.log(ctx)
-    };
-    return this;
-}
-
-EvaluateVisitor.prototype = new Logic.LogicVisitor();

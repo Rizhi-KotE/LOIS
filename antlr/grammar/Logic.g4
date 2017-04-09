@@ -1,8 +1,8 @@
 grammar Logic;
 
 file            :formula EOF;
-formula		    :const|atom|unary_formula|binary_formula;
-const           :'1'|'0';
+formula		    :constant|atom|unary_formula|binary_formula;
+constant           :'1'|'0';
 negatiation		:'!';
 conjunction		:'&';
 disjunction		:'|';
