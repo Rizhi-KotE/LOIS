@@ -9,8 +9,9 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
         libraryTarget: 'var',
-        library: 'EntryPoint'
+        library: 'EntryPoint',
+        // devtoolModuleFilenameTemplate: '../[resource]'
     },
     node: { module: "empty", net: "empty", fs: "empty" },
-    devtool: "source-map"
+    devtool: "inline-source-map"
 };

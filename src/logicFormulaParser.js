@@ -41,7 +41,6 @@ function parseLogicFormula(str) {
 
 function EvaluateVisitor() {
     LogicVisitor.call(this);
-    undefined.asd();
 
     this.visitConjunction = function (ctx) {
         console.log(ctx)
