@@ -1,4 +1,5 @@
-let $ = require('')
+let $ = require('../../node_modules/jquery/dist/jquery.min.js');
+let EntryPoint = require('../logicFormulaParser.js');
 
 function submitFunction() {
     var listener = EntryPoint.parseLogicFormula($('input.formula').val()).errorListener;
@@ -8,6 +9,7 @@ function submitFunction() {
         setMessage(listener.getError(), "alert-warning");
     }
 };
+
 function setMessage(message, clazz) {
     $('.message').empty();
     $('.message').append(message);
@@ -24,7 +26,6 @@ $(document).ready(function () {
     }
 });
 
-var states = ['checkFormulaState', 'testFormulaState', 'checkSKNFState', 'testSKNFState']
 
 var testFormulaView = (function () {
     var currentClass = "alert-info";
@@ -64,25 +65,39 @@ var testFormulaView = (function () {
     }
 })();
 
-function checkFormulaState() {
-    states.forEach(state => $(`#${state}`).css('display', 'none'));
-    $('#checkFormulaState').css('display', 'block')
-}
+let changeState = (function () {
+    var states = ['checkFormulaState', 'testFormulaState', 'checkSKNFState', 'testSKNFState']
 
-function testFormulaState() {
-    states.forEach(state => $(`#${state}`).css('display', 'none'));
-    $('#testFormulaState').css('display', 'block')
-}
+    function checkFormulaState() {
+        states.forEach(state => $(`#${state}`).css('display', 'none'));
+        $('#checkFormulaState').css('display', 'block')
+    }
 
-function checkSKNFState() {
-    states.forEach(state => $(`#${state}`).css('display', 'none'));
-    $('#checkSKNFState').css('display', 'block')
-}
+    function testFormulaState() {
+        states.forEach(state => $(`#${state}`).css('display', 'none'));
+        $('#testFormulaState').css('display', 'block')
+    }
 
-function testSKNFState() {
-    states.forEach(state => $(`#${state}`).css('display', 'none'));
-    $('#testSKNFState').css('display', 'block')
-}
+    function checkSKNFState() {
+        states.forEach(state => $(`#${state}`).css('display', 'none'));
+        $('#checkSKNFState').css('display', 'block')
+    }
 
-$(checkFormulaState);
+    function testSKNFState() {
+        states.forEach(state => $(`#${state}`).css('display', 'none'));
+        $('#testSKNFState').css('display', 'block')
+    }
+    return {
+        checkFormulaState: checkFormulaState,
+        testFormulaState: testFormulaState,
+        checkSKNFState: checkSKNFState,
+        testSKNFState: testSKNFState
+}
+})();
+
+$(changeState.checkFormulaState);
 $(testFormulaView.changeTestFormula);
+
+exports.checkFormulaView =
+exports.testFormulaView = testFormulaView;
+exports.changeState = changeState;

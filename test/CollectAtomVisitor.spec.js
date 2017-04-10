@@ -6,6 +6,5 @@ describe('CollectAtomVisitor', function () {
         expect(atoms.includes('A')).toBeTruthy();
         expect(atoms.includes('B')).toBeTruthy();
         expect(atoms.includes('C')).toBeTruthy();
-
     })
-})
+});

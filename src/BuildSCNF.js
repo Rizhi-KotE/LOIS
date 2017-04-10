@@ -25,20 +25,23 @@ function elementaryDisjunction(row) {
 }
 
 function buildSKNFString(table) {
-    let leftFormula = elementaryDisjunction(table[0][0]);
+    let leftFormula = elementaryDisjunction(table[0]);
     return table.length === 1 ? leftFormula :
         `(${leftFormula}&${buildSKNFString(table.slice(1))})`;
 }
 
-function buildSKNF(str) {
-    let tree = parseLogicFormula(str).tree;
+function calculateSKNFTable(tree) {
     let atoms = collectAtoms(tree);
     if (atoms.length === 0) throw "formula has not any atom";
-    let sknfTable = calculateTableOfThruth(tree, atoms)
+    return calculateTableOfThruth(tree, atoms)
         .filter(tuple => tuple[1] === false)
-        .map(tuple => [
-            Object.keys(tuple[0]).map(key => [key, tuple[0][key]]),
-            tuple[1]]);
+        .map(tuple =>
+            Object.keys(tuple[0]).map(key => [key, tuple[0][key]]));
+}
+
+function buildSKNF(str) {
+    let tree = parseLogicFormula(str).tree;
+    let sknfTable = calculateSKNFTable(tree);
     if (sknfTable.length === 0) throw "formula is identicaly true";
     return buildSKNFString(sknfTable);
 }

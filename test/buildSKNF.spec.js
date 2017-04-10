@@ -30,10 +30,19 @@ describe('build SKNF function', function () {
         });
     });
 
+    it('calculate sknf table', function () {
+
+        let tree = parseLogicFormula('(A|B)').tree;
+        let table = calculateSKNFTable(tree);
+        expect(table).toEqual([
+            [['A', 0], ['B', 0]]
+        ]);
+    });
+
     describe('build elementary disjunction', function () {
 
         it('without negatiations', function () {
-            let row =[['A', 0], ['B', 0], ['C', 0]];
+            let row = [['A', 0], ['B', 0], ['C', 0]];
             expect(elementaryDisjunction(row)).toBe('(A|(B|C))');
         });
 
@@ -57,5 +66,4 @@ describe('build SKNF function', function () {
         });
 
     })
-})
-;
+});

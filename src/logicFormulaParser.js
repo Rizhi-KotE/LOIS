@@ -38,4 +38,3 @@ function parseLogicFormula(str) {
         tree: tree
     };
 }
-

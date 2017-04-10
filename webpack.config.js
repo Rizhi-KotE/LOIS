@@ -3,7 +3,8 @@ const path = require('path');
 module.exports = {
     entry: {
         antlr4: '/home/rizhi-kote/Student/labs/LOIS/node_modules/antlr4/index.js',
-        Logic: './antlr/src/Logic.index.js'
+        Logic: './antlr/src/Logic.index.js',
+        view: './src/view/viewControllers.js'
         // dist: './src/logicFormulaParser.js',
         // test: './test/specs.js'
     },
