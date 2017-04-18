@@ -33,7 +33,7 @@ describe('build SKNF function', function () {
     it('calculate sknf table', function () {
 
         let tree = parseLogicFormula('(A|B)').tree;
-        let table = calculateSKNFTable(tree);
+        let table = calculateSCNFTable(tree);
         expect(table).toEqual([
             [['A', 0], ['B', 0]]
         ]);
@@ -56,12 +56,12 @@ describe('build SKNF function', function () {
     describe('build SKNF', function () {
 
         it('without negatiations', function () {
-            let sknf = buildSKNF('(A|B)');
+            let sknf = buildSCNF('(A|B)');
             expect(sknf).toBe('(A|B)');
         });
 
         it('has negatiations', function () {
-            let sknf = buildSKNF('(A&B)');
+            let sknf = buildSCNF('(A&B)');
             expect(sknf).toBe('((A|B)&((A|(!B))&((!A)|B)))');
         });
 

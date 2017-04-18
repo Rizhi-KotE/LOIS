@@ -122,7 +122,7 @@ let buildSCNFView = (function () {
         buildSCNF: function () {
             try {
                 let formula = $(formulaSelector).val();
-                let scnf = buildSKNF(formula);
+                let scnf = buildSCNF(formula);
                 setFormula(scnf);
                 $(messageSelector).css('display', 'none');
             } catch (e) {

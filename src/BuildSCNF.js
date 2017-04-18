@@ -24,13 +24,13 @@ function elementaryDisjunction(row) {
         `(${leftFormula}|${elementaryDisjunction(row.slice(1))})`
 }
 
-function buildSKNFString(table) {
+function buildSCNFString(table) {
     let leftFormula = elementaryDisjunction(table[0]);
     return table.length === 1 ? leftFormula :
-        `(${leftFormula}&${buildSKNFString(table.slice(1))})`;
+        `(${leftFormula}&${buildSCNFString(table.slice(1))})`;
 }
 
-function calculateSKNFTable(tree) {
+function calculateSCNFTable(tree) {
     let atoms = collectAtoms(tree);
     if (atoms.length === 0) throw "formula has not any atom";
     return calculateTableOfThruth(tree, atoms)
@@ -39,12 +39,12 @@ function calculateSKNFTable(tree) {
             Object.keys(tuple[0]).map(key => [key, tuple[0][key]]));
 }
 
-function buildSKNF(str) {
+function buildSCNF(str) {
     let result = parseLogicFormula(str);
     if(!result.errorListener.hasNotError()){
         throw result.errorListener.getError();
     }
-    let sknfTable = calculateSKNFTable(result.tree);
+    let sknfTable = calculateSCNFTable(result.tree);
     if (sknfTable.length === 0) throw "formula is identicaly true";
-    return buildSKNFString(sknfTable);
+    return buildSCNFString(sknfTable);
 }

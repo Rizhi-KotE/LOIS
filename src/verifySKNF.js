@@ -7,7 +7,7 @@ function verifySKNF(formula, sknf) {
         throw formulaParseResult.errorListener.getError();
     let sknfParseResult = parseLogicFormula(sknf);
     if (!sknfParseResult.errorListener.hasNotError()) throw formulaParseResult.errorListener.getError();
-    let formulaTable = calculateSKNFTable(formulaParseResult.tree);
+    let formulaTable = calculateSCNFTable(formulaParseResult.tree);
     let sknfTable = new SKNFVisitor().visit(sknfParseResult.tree);
     return compareTables(formulaTable, sknfTable);
 }

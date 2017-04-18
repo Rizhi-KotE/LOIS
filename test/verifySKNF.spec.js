@@ -26,8 +26,8 @@ describe('verify that this formula is SKNF', function () {
     it('incorrect formulas', function () {
         let formula = '(A&)';
         let sknf = '(((A|B)&((!A)|B))';
-        expect(() => verifySKNF(formula, sknf)).toThrow(new Error('formula is incorrect logic formula'));
-        expect(() => verifySKNF('(A&B)', sknf)).toThrow(new Error('sknf is incorrect logic formula'));
+        expect(() => verifySKNF(formula, sknf)).toThrow();
+        expect(() => verifySKNF('(A&B)', sknf)).toThrow();
     })
 });
 
