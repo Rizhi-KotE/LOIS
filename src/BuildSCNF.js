@@ -40,8 +40,11 @@ function calculateSKNFTable(tree) {
 }
 
 function buildSKNF(str) {
-    let tree = parseLogicFormula(str).tree;
-    let sknfTable = calculateSKNFTable(tree);
+    let result = parseLogicFormula(str);
+    if(!result.errorListener.hasNotError()){
+        throw result.errorListener.getError();
+    }
+    let sknfTable = calculateSKNFTable(result.tree);
     if (sknfTable.length === 0) throw "formula is identicaly true";
     return buildSKNFString(sknfTable);
 }

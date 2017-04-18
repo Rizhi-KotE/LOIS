@@ -1,7 +1,16 @@
 <html>
 <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 
-<script type="text/javascript" src="dist/view.bundle.js"></script>
+
+<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="dist/antlr4.bundle.js"></script>
+<script type="text/javascript" src="dist/Logic.bundle.js"></script>
+<script type="text/javascript" src="src/BuildSCNF.js"></script>
+<script type="text/javascript" src="src/collectAtoms.js"></script>
+<script type="text/javascript" src="src/EvaluateVisitor.js"></script>
+<script type="text/javascript" src="src/logicFormulaParser.js"></script>
+<script type="text/javascript" src="src/verifySKNF.js"></script>
+<script type="text/javascript" src="src/view/viewControllers.js"></script>
 <style type="text/css">
   .container {
     padding: 20px;
@@ -23,33 +32,20 @@
 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-              data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Brand</a>
+      <a class="navbar-brand" href="#">Logic</a>
     </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a href="javascript:checkFormulaState();">Проверить формулу</a></li>
-        <li><a href="javascript:testFormulaState();">Тест</a></li>
-        <li><a href="javascript:checkSKNFState();">Построить СКНФ</a></li>
-        <li><a href="javascript:testSKNFState();">Проверить СКНФ</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    <ul class="nav navbar-nav">
+      <li role="presentation"><a href="javascript:changeState.checkFormulaState();">Проверить формулу</a></li>
+      <li role="presentation"><a href="javascript:changeState.testFormulaState();">Тест</a></li>
+      <li role="presentation"><a href="javascript:changeState.buildSKNFState();">Построить СКНФ</a></li>
+      <li role="presentation"><a href="javascript:changeState.testSKNFState();">Проверить СКНФ</a></li>
+    </ul>
+  </div>
 </nav>
 
-
 <div class="container" id="checkFormulaState">
-  <form class='input-container form' onsubmit="submitFunction();return false;">
+  <form class='input-container form' onsubmit="checkFormulaView.submitFunction();return false;">
     <div class="message alert">
       Введите формулу
     </div>
@@ -71,4 +67,42 @@
     </div>
   </form>
 </div>
+
+<div class="container" id="buildSCNF">
+  <form class='input-container form' onsubmit="return false;">
+    <div class="alert alert-info form-group" id="buildSCNFMessage">
+      Построить СКНФ для формулы
+    </div>
+    <div class="message alert" style="display: none"></div>
+    <div class="form-group">
+      <label for="buildSKNFFormula"></label>
+      <input class="col-sm-12 form-control formula" id="buildSKNFFormula" placeholder="Введите формулу">
+    </div>
+    <button class="btn btn-default" onclick="buildSCNFView.buildSCNF()">Построить</button>
+    <div class="form-group">
+      <label for="buildSCNFOut"></label>
+      <textarea id="buildSCNFOut" class="form-control scnf"></textarea>
+    </div>
+  </form>
+</div>
+
+<div class="container" id="SCNFTest">
+  <form class='input-container form' onsubmit="return false;">
+    <div class="alert alert-info form-group" >
+      Введите эквивалентную данной формуле СКНФ
+    </div>
+    <div class="alert" style="display: none" id="SCNFTestMessage">
+    
+    </div>
+    <textarea class="col-sm-12 form-control" id="SCNFTestExample"></textarea>
+    <div class="form-group">
+      <label for="buildSKNFFormula"></label>
+      <textarea class="col-sm-12 form-control" id="SCNFTestFormula" placeholder="Введите формулу"></textarea>
+    </div>
+    <button class="btn btn-primary" onclick="scnfTestView.testSCNF()">Построить</button>
+    <button class="btn btn-default" onclick="scnfTestView.changeTestFormula()">Другая формула</button>
+  </form>
+</div>
+
+
 </html>

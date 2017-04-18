@@ -1,8 +1,12 @@
+
+
+
 function verifySKNF(formula, sknf) {
     let formulaParseResult = parseLogicFormula(formula);
-    if (!formulaParseResult.errorListener.hasNotError()) throw new Error('formula is incorrect logic formula');
+    if (!formulaParseResult.errorListener.hasNotError())
+        throw formulaParseResult.errorListener.getError();
     let sknfParseResult = parseLogicFormula(sknf);
-    if (!sknfParseResult.errorListener.hasNotError()) throw new Error('sknf is incorrect logic formula');
+    if (!sknfParseResult.errorListener.hasNotError()) throw formulaParseResult.errorListener.getError();
     let formulaTable = calculateSKNFTable(formulaParseResult.tree);
     let sknfTable = new SKNFVisitor().visit(sknfParseResult.tree);
     return compareTables(formulaTable, sknfTable);
